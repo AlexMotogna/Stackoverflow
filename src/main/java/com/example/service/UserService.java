@@ -28,8 +28,7 @@ public class UserService {
     }
 
     public User getUserById(Integer id) {
-        Optional<User> customer = iUserRepository.findById(id);
-        return customer.orElse(null);
+        return iUserRepository.findById(id).orElse(null);
     }
 
     public String updateUser(User user) {

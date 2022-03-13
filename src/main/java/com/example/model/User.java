@@ -1,13 +1,19 @@
 package com.example.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
     @Column(name = "username")
@@ -27,6 +33,10 @@ public class User {
 
     @Column(name = "banned")
     private Boolean banned;
+
+//    @JsonBackReference
+    @OneToMany(mappedBy = "author")
+    private List<Question> questions = new ArrayList<>();
 
     public User() {
 
@@ -96,5 +106,13 @@ public class User {
 
     public void setBanned(Boolean banned) {
         this.banned = banned;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }
