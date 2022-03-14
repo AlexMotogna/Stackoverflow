@@ -37,6 +37,9 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Question> questions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Answer> answers = new ArrayList<>();
+
     public User() {
 
     }
@@ -113,5 +116,13 @@ public class User {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }

@@ -1,24 +1,17 @@
 package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class Question {
+public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "title")
-    private String title;
 
     @Column(name = "text")
     private String text;
@@ -29,25 +22,27 @@ public class Question {
     @Column(name = "score")
     private Integer score;
 
-    @JsonBackReference(value = "question-user")
+    @JsonBackReference(value = "answer-user")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "authorid", referencedColumnName = "id")
     private User author;
 
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
+    @JsonBackReference(value = "answer-question")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "qid", referencedColumnName = "id")
+    private Question question;
 
-    public Question() {
+    public Answer() {
 
     }
 
-    public Question(Integer id, String title, String text, Timestamp creationtime, Integer score, User author) {
+    public Answer(Integer id, String text, Timestamp creationtime, Integer score, User author, Question question) {
         this.id = id;
-        this.title = title;
         this.text = text;
         this.creationtime = creationtime;
         this.score = score;
         this.author = author;
+        this.question = question;
     }
 
     public Integer getId() {
@@ -56,14 +51,6 @@ public class Question {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getText() {
@@ -98,11 +85,11 @@ public class Question {
         this.author = author;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }
