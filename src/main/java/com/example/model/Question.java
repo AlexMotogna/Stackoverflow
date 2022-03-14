@@ -3,15 +3,11 @@ package com.example.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Builder
 @Entity
-@NoArgsConstructor
 public class Question {
 
     @Id
@@ -35,6 +31,10 @@ public class Question {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "authorid", referencedColumnName = "id")
     private User author;
+
+    public Question() {
+
+    }
 
     public Question(Integer id, String title, String text, Timestamp creationtime, Integer score, User author) {
         this.id = id;

@@ -21,16 +21,35 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getAllFromUser")
+    @ResponseBody
+    public List<Question> getAllQuestionsByAuthorId(@RequestParam(name = "authorid") Integer id) {
+        return questionService.getAllQuestionsByAuthorId(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/get")
     @ResponseBody
     public Question getQuestionById(@RequestParam(name = "id") Integer id) {
         return questionService.getQuestionById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/create/{authorid}")
+    @RequestMapping(method = RequestMethod.POST, value = "/create")
     @ResponseBody
-    public String createQuestion(@PathVariable Integer authorid, @RequestBody Question question) {
+    public String createQuestion(@RequestParam(name = "authorid") Integer authorid, @RequestBody Question question) {
         return questionService.createQuestion(authorid, question);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/update")
+    @ResponseBody
+    public String updateQuestion(@RequestBody Question question) {
+        return questionService.updateQuestion(question);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
+    @ResponseBody
+    public String deleteQuestion(@RequestParam(name = "id") Integer id) {
+        return questionService.deleteQuestion(id);
+    }
+
 
 }

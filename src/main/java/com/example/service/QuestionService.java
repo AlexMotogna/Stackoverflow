@@ -33,8 +33,37 @@ public class QuestionService {
         return (List<Question>) iQuestionRepository.findAll();
     }
 
+    public List<Question> getAllQuestionsByAuthorId(Integer authorid) {
+        return iQuestionRepository.getAllQuestionsByAuthorId(authorid);
+    }
+
     public Question getQuestionById(Integer id) {
         return iQuestionRepository.findById(id).orElse(null);
+    }
+
+    public String updateQuestion(Question question) {
+        try {
+            Question updatedQuestion = this.getQuestionById(question.getId());
+
+            updatedQuestion.setTitle(question.getTitle());
+            updatedQuestion.setText(question.getText());
+            updatedQuestion.setScore(question.getScore());
+
+            iQuestionRepository.save(updatedQuestion);
+
+            return "Update success.";
+        } catch (Exception e) {
+            return "Update failed.";
+        }
+    }
+
+    public String deleteQuestion(Integer id) {
+        try {
+            iQuestionRepository.delete(this.getQuestionById(id));
+            return "Delete success.";
+        } catch (Exception e) {
+            return "Delete failed.";
+        }
     }
 
 

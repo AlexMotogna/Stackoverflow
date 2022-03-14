@@ -33,16 +33,16 @@ public class UserService {
 
     public String updateUser(User user) {
         try {
-            User initialUser = this.getUserById(user.getId());
+            User updatedUser = this.getUserById(user.getId());
 
-            initialUser.setUsername(user.getUsername());
-            initialUser.setEmail(user.getEmail());
-            initialUser.setPassword(user.getPassword());
-            initialUser.setScore(user.getScore());
-            initialUser.setBanned(user.getBanned());
-            initialUser.setAdmin(user.getAdmin());
+            updatedUser.setUsername(user.getUsername());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setScore(user.getScore());
+            updatedUser.setBanned(user.getBanned());
+            updatedUser.setAdmin(user.getAdmin());
 
-            iUserRepository.save(initialUser);
+            iUserRepository.save(updatedUser);
 
             return "Update success.";
         } catch (Exception e) {

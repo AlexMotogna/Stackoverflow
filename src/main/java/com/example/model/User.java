@@ -34,7 +34,6 @@ public class User {
     @Column(name = "banned")
     private Boolean banned;
 
-//    @JsonBackReference
     @OneToMany(mappedBy = "author")
     private List<Question> questions = new ArrayList<>();
 

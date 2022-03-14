@@ -33,13 +33,13 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/create")
+    @RequestMapping(method = RequestMethod.POST, value = "/create")
     @ResponseBody
     public String createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    @RequestMapping(method = RequestMethod.PUT, value = "/update")
     @ResponseBody
     public String updateUser(@RequestBody User user) {
         return userService.updateUser(user);
