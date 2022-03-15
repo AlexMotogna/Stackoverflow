@@ -1,6 +1,8 @@
 package com.example.controller;
 
+import com.example.model.AnswerVote;
 import com.example.model.Question;
+import com.example.model.QuestionVote;
 import com.example.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +63,18 @@ public class QuestionController {
     @ResponseBody
     public String removeTag(@RequestParam(name = "qid") Integer qid, @RequestParam(name = "tagid") Integer tagid) {
         return questionService.removeTag(qid, tagid);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/votes")
+    @ResponseBody
+    public List<QuestionVote> getVotes(@RequestParam(name = "id") Integer id) {
+        return questionService.getVotes(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upvote")
+    @ResponseBody
+    public String voteQuestion(@RequestParam(name = "qid") Integer qid, @RequestParam(name = "userid") Integer userid, @RequestParam(name = "upvote") Boolean upvote) {
+        return questionService.upvote(qid, userid, upvote);
     }
 
 }

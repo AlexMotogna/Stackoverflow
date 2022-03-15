@@ -1,14 +1,14 @@
 package com.example.service;
 
-import com.example.model.Question;
-import com.example.model.Tag;
-import com.example.model.User;
+import com.example.model.*;
 import com.example.repository.IQuestionRepository;
+import com.example.repository.IQuestionVoteRepository;
 import com.example.repository.ITagRepository;
 import com.example.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +22,9 @@ public class QuestionService {
 
     @Autowired
     ITagRepository iTagRepository;
+
+    @Autowired
+    IQuestionVoteRepository iQuestionVoteRepository;
 
     public String createQuestion(Integer authorid, Question question) {
         try {
@@ -95,6 +98,38 @@ public class QuestionService {
             iQuestionRepository.save(question);
             return "Success.";
         } catch (Exception e) {
+            return "Failed.";
+        }
+    }
+
+    public List<QuestionVote> getVotes(Integer id) {
+        Question question = iQuestionRepository.findById(id).orElse(null);
+        if (question != null) {
+            return question.getVotes();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public String upvote(Integer qid, Integer userid, Boolean upvote) {
+        Question question = iQuestionRepository.findById(qid).orElse(null);
+        User user = iUserRepository.findById(userid).orElse(null);
+
+        if (question != null && user != null) {
+
+            QuestionVote newVote = new QuestionVote(
+                    new QuestionVoteId(qid, userid),
+                    question,
+                    user,
+                    upvote
+            );
+
+            //TODO: point reward
+
+            iQuestionVoteRepository.save(newVote);
+
+            return "Success.";
+        } else {
             return "Failed.";
         }
     }

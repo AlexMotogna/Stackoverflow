@@ -45,17 +45,24 @@ public class Question {
     )
     private List<Tag> tags = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "question")
+    private List<QuestionVote> votes = new ArrayList<>();
+
     public Question() {
 
     }
 
-    public Question(Integer id, String title, String text, Timestamp creationtime, Integer score, User author) {
+    public Question(Integer id, String title, String text, Timestamp creationtime, Integer score, User author, List<Answer> answers, List<Tag> tags, List<QuestionVote> votes) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.creationtime = creationtime;
         this.score = score;
         this.author = author;
+        this.answers = answers;
+        this.tags = tags;
+        this.votes = votes;
     }
 
     public Integer getId() {
@@ -120,5 +127,13 @@ public class Question {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public List<QuestionVote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<QuestionVote> votes) {
+        this.votes = votes;
     }
 }

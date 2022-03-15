@@ -1,8 +1,6 @@
 package com.example.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -42,13 +40,17 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<AnswerVote> votes = new ArrayList<>();
+    private List<AnswerVote> answerVotes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<AnswerVote> questionVotes = new ArrayList<>();
 
     public User() {
 
     }
 
-    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned, List<Question> questions, List<Answer> answers, List<AnswerVote> votes) {
+    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned, List<Question> questions, List<Answer> answers, List<AnswerVote> answerVotes, List<AnswerVote> questionVotes) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -58,7 +60,8 @@ public class User {
         this.banned = banned;
         this.questions = questions;
         this.answers = answers;
-        this.votes = votes;
+        this.answerVotes = answerVotes;
+        this.questionVotes = questionVotes;
     }
 
     public Integer getId() {
@@ -133,11 +136,19 @@ public class User {
         this.answers = answers;
     }
 
-    public List<AnswerVote> getVotes() {
-        return votes;
+    public List<AnswerVote> getAnswerVotes() {
+        return answerVotes;
     }
 
-    public void setVotes(List<AnswerVote> votes) {
-        this.votes = votes;
+    public void setAnswerVotes(List<AnswerVote> answerVotes) {
+        this.answerVotes = answerVotes;
+    }
+
+    public List<AnswerVote> getQuestionVotes() {
+        return questionVotes;
+    }
+
+    public void setQuestionVotes(List<AnswerVote> questionVotes) {
+        this.questionVotes = questionVotes;
     }
 }

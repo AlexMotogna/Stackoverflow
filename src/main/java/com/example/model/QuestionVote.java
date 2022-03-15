@@ -6,18 +6,18 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
-@Entity(name = "AnswerVote")
-@Table(name = "answer_vote")
-public class AnswerVote {
+@Entity(name = "QuestionVote")
+@Table(name = "question_vote")
+public class QuestionVote {
 
     @EmbeddedId
-    private AnswerVoteId id;
+    private QuestionVoteId id;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "aid", referencedColumnName = "id")
-    @MapsId("aid")
-    private Answer answer;
+    @JoinColumn(name = "qid", referencedColumnName = "id")
+    @MapsId("qid")
+    private Question question;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -28,31 +28,31 @@ public class AnswerVote {
     @Column(name = "upvote")
     private Boolean upvote;
 
-    public AnswerVote() {
+    public QuestionVote() {
 
     }
 
-    public AnswerVote(AnswerVoteId id, Answer answer, User user, Boolean upvote) {
+    public QuestionVote(QuestionVoteId id, Question question, User user, Boolean upvote) {
         this.id = id;
-        this.answer = answer;
+        this.question = question;
         this.user = user;
         this.upvote = upvote;
     }
 
-    public AnswerVoteId getId() {
+    public QuestionVoteId getId() {
         return id;
     }
 
-    public void setId(AnswerVoteId id) {
+    public void setId(QuestionVoteId id) {
         this.id = id;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public User getUser() {
