@@ -1,6 +1,11 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Tag {
@@ -12,6 +17,10 @@ public class Tag {
 
     @Column(name = "name")
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "tags")
+    private List<Question> questionsTagged = new ArrayList<>();
 
     public Tag() {
 
@@ -36,5 +45,13 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Question> getQuestionsTagged() {
+        return questionsTagged;
+    }
+
+    public void setQuestionsTagged(List<Question> questionsTagged) {
+        this.questionsTagged = questionsTagged;
     }
 }

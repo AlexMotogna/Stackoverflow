@@ -51,5 +51,16 @@ public class QuestionController {
         return questionService.deleteQuestion(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/addTag")
+    @ResponseBody
+    public String addTag(@RequestParam(name = "qid") Integer qid, @RequestParam(name = "tagid") Integer tagid) {
+        return questionService.addTag(qid, tagid);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/removeTag")
+    @ResponseBody
+    public String removeTag(@RequestParam(name = "qid") Integer qid, @RequestParam(name = "tagid") Integer tagid) {
+        return questionService.removeTag(qid, tagid);
+    }
 
 }

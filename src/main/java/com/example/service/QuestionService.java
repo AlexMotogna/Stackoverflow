@@ -1,8 +1,10 @@
 package com.example.service;
 
 import com.example.model.Question;
+import com.example.model.Tag;
 import com.example.model.User;
 import com.example.repository.IQuestionRepository;
+import com.example.repository.ITagRepository;
 import com.example.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class QuestionService {
 
     @Autowired
     IUserRepository iUserRepository;
+
+    @Autowired
+    ITagRepository iTagRepository;
 
     public String createQuestion(Integer authorid, Question question) {
         try {
@@ -66,5 +71,32 @@ public class QuestionService {
         }
     }
 
+    public String addTag(Integer qid, Integer tagid) {
+        try {
+            Question question = this.getQuestionById(qid);
+            Tag tag = iTagRepository.findById(tagid).orElse(null);
+
+            question.getTags().add(tag);
+
+            iQuestionRepository.save(question);
+            return "Success.";
+        } catch (Exception e) {
+            return "Failed.";
+        }
+    }
+
+    public String removeTag(Integer qid, Integer tagid) {
+        try {
+            Question question = this.getQuestionById(qid);
+            Tag tag = iTagRepository.findById(tagid).orElse(null);
+
+            question.getTags().remove(tag);
+
+            iQuestionRepository.save(question);
+            return "Success.";
+        } catch (Exception e) {
+            return "Failed.";
+        }
+    }
 
 }
