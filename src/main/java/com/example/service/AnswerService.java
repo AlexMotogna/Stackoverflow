@@ -1,14 +1,14 @@
 package com.example.service;
 
-import com.example.model.Answer;
-import com.example.model.Question;
-import com.example.model.User;
+import com.example.model.*;
 import com.example.repository.IAnswerRepository;
+import com.example.repository.IAnswerVoteRepository;
 import com.example.repository.IQuestionRepository;
 import com.example.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +22,10 @@ public class AnswerService {
 
     @Autowired
     IQuestionRepository iQuestionRepository;
+
+    @Autowired
+    IAnswerVoteRepository iAnswerVoteRepository;
+
 
     public List<Answer> getAllAnswers() {
         return (List<Answer>) iAnswerRepository.findAll();
@@ -70,6 +74,38 @@ public class AnswerService {
             return "Delete success.";
         } catch (Exception e) {
             return "Delete failed.";
+        }
+    }
+
+    public List<AnswerVote> getVotes(Integer id) {
+        Answer answer = iAnswerRepository.findById(id).orElse(null);
+        if (answer != null) {
+            return answer.getVotes();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public String upvote(Integer aid, Integer userid, Boolean upvote) {
+        Answer answer = iAnswerRepository.findById(aid).orElse(null);
+        User user = iUserRepository.findById(userid).orElse(null);
+
+        if (answer != null && user != null) {
+
+            AnswerVote newVote = new AnswerVote(
+                    new AnswerVoteId(aid, userid),
+                    answer,
+                    user,
+                    upvote
+            );
+
+            //TODO: point reward
+
+            iAnswerVoteRepository.save(newVote);
+
+            return "Success.";
+        } else {
+            return "Failed.";
         }
     }
 

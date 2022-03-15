@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Answer;
+import com.example.model.AnswerVote;
 import com.example.model.Question;
 import com.example.model.User;
 import com.example.service.AnswerService;
@@ -51,6 +52,18 @@ public class AnswerController {
     @ResponseBody
     public String deleteAnswer(@RequestParam(name = "id") Integer id) {
         return answerService.deleteAnswer(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/votes")
+    @ResponseBody
+    public List<AnswerVote> getVotes(@RequestParam(name = "id") Integer id) {
+        return answerService.getVotes(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upvote")
+    @ResponseBody
+    public String voteAnswer(@RequestParam(name = "aid") Integer aid, @RequestParam(name = "userid") Integer userid, @RequestParam(name = "upvote") Boolean upvote) {
+        return answerService.upvote(aid, userid, upvote);
     }
 
 }

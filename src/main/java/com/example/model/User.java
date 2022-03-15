@@ -40,11 +40,15 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Answer> answers = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<AnswerVote> votes = new ArrayList<>();
+
     public User() {
 
     }
 
-    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned) {
+    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned, List<Question> questions, List<Answer> answers, List<AnswerVote> votes) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -52,6 +56,9 @@ public class User {
         this.score = score;
         this.admin = admin;
         this.banned = banned;
+        this.questions = questions;
+        this.answers = answers;
+        this.votes = votes;
     }
 
     public Integer getId() {
@@ -124,5 +131,13 @@ public class User {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public List<AnswerVote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<AnswerVote> votes) {
+        this.votes = votes;
     }
 }

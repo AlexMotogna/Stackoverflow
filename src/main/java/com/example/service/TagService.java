@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.model.Tag;
-import com.example.model.User;
 import com.example.repository.ITagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
