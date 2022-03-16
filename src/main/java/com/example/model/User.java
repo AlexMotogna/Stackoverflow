@@ -50,7 +50,7 @@ public class User {
 
     }
 
-    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned, List<Question> questions, List<Answer> answers, List<AnswerVote> answerVotes, List<AnswerVote> questionVotes) {
+    public User(Integer id, String username, String email, String password, Integer score, Boolean admin, Boolean banned) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -58,10 +58,6 @@ public class User {
         this.score = score;
         this.admin = admin;
         this.banned = banned;
-        this.questions = questions;
-        this.answers = answers;
-        this.answerVotes = answerVotes;
-        this.questionVotes = questionVotes;
     }
 
     public Integer getId() {
