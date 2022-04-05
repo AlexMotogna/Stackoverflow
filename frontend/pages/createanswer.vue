@@ -9,7 +9,7 @@
         <v-form>
           <v-textarea class="text-area" v-model="text" placeholder="Enter question" />
           <v-btn @click="submit">Submit Answer</v-btn>
-          <v-btn to="/questions">Back</v-btn>
+          <v-btn to="/questionview">Back</v-btn>
         </v-form>
       </v-card>
   </div>
