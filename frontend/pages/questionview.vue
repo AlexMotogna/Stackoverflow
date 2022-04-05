@@ -2,8 +2,11 @@
   <div>
     <h1>Question:</h1>
     <QuestionItem key="question.id" :value="question" />
+    <br>
+    <v-btn to="/createanswer">Answer question</v-btn>
     <h1>Answers:</h1>
     <AnswerItem v-for="answer in question.answers" :key="answer.id" :value="answer" />
+    <v-btn to="/questions">Back</v-btn>
   </div>
 </template>
 
