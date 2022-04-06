@@ -16,22 +16,12 @@
 </template>
 
 <script>
+import { questionJson } from '../constants';
+
 export default {
   data() {
     return {
-      question: {
-            "id": 2,
-            "title": "Python Question",
-            "text": "Why it don't work py?",
-            "creationtime": "2022-03-16T12:36:21.000+00:00",
-            "score": 0,
-            "tags": [
-                {
-                    "id": 2,
-                    "name": "Python"
-                }
-            ]
-      } ,
+      question: questionJson ,
       text: ''
     }
   },
