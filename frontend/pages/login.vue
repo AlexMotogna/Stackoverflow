@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div v-show="error">
+      <v-card class="error_card">
+        <v-card-title class="error">INCORRECT LOGIN</v-card-title>
+      </v-card>
+    </div>
     <div>
       <v-card class="login_card">
         <v-card-title class="title">LOGIN<Logo /></v-card-title>
@@ -24,13 +29,25 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      error: false
     }
   },
 
   methods: {
-    login() {
-      console.log({ username: this.username, password: this.password });
+    async login() {
+      const users = await this.$axios.get('/users/getAll');
+
+      var result = users.data.filter(x => x.username === this.username && x.password === this.password);
+      console.log(result)
+
+      if(Object.keys(result).length == 1) {
+        this.$router.push('/mainpage');
+      } else {
+        this.error = true
+        console.log("Bad login");
+      }
+
     }
   }
 }
@@ -40,15 +57,27 @@ export default {
 .title {
   font-size: large;
 }
+.error {
+  font-size: large;
+  color: red;
+}
 .text-input {
   width: 50%;
   text-align: center;
   padding-left: 30px;
 }
+.error_card {
+  width: 30%;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .login_card {
   width: 50%;
   position: fixed;
-  top: 30%;
+  top: 40%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -56,7 +85,7 @@ export default {
 .create_account_card {
   width: 50%;
   position: fixed;
-  top: 70%;
+  top: 80%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);

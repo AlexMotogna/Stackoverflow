@@ -7,17 +7,22 @@
 </template>
 
 <script>
-import { questionsJson } from '../constants'
-
 export default {
   data() {
     return {
-      questions: questionsJson
+      questions: []
     }
+  },
+  async mounted() {
+    this.getPosts();
   },
   methods : {
     redirectview() {
       this.$router.push('/questionview');
+    },
+    async getPosts() {
+      const questions = await this.$axios.get('/questions/getAll');
+      this.questions = questions.data;
     }
   }
 }

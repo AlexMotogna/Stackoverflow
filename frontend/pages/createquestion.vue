@@ -31,12 +31,12 @@ export default {
 
 <style scoped>
 .text-input {
-  width: 50%;
+  width: 75%;
   text-align: center;
   padding-left: 30px;
 }
 .text-area {
-  width: 50%;
+  width: 75%;
   text-align: center;
   padding-left: 30px;
   /* border-style: solid; */
