@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.AuthDTO;
 import com.example.model.User;
 import com.example.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class UserService {
     @Autowired
     IUserRepository iUserRepository;
 
-    public String createUser(User user) {
+    public User createUser(User user) {
         try {
             iUserRepository.save(user);
-            return "Creation success.";
+            return user;
         } catch (Exception e) {
-            return "Creation failed.";
+            return null;
         }
     }
 
@@ -29,6 +30,20 @@ public class UserService {
 
     public User getUserById(Integer id) {
         return iUserRepository.findById(id).orElse(null);
+    }
+
+    public User login(AuthDTO auth) {
+        User user = iUserRepository.findByUsername(auth.getUsername());
+
+        try {
+            if(auth.getPassword().equals(user.getPassword())) {
+                return user;
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public String updateUser(User user) {

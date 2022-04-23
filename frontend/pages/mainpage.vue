@@ -8,6 +8,7 @@
       <br>
       <v-btn to="/profile">View Profile</v-btn>
     </v-card>
+    <LogoutButton />
   </div>
 </template>
 

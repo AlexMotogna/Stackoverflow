@@ -46,7 +46,8 @@ export default {
                                                admin: false,
                                                banned: false });
 
-      if(response.data === "Creation success.") {
+      if(response.data) {
+        this.$store.commit('set', response.data);
         this.$router.push('/mainpage');
       } else {
         this.error = true;

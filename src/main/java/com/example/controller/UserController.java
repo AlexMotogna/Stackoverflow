@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.AuthDTO;
 import com.example.model.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,12 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    @ResponseBody
+    public User login(@RequestBody AuthDTO auth) {
+        return userService.login(auth);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
     @ResponseBody
     public String deleteUser(@RequestParam(name = "id") Integer id) {
@@ -35,7 +42,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     @ResponseBody
-    public String createUser(@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 

@@ -36,12 +36,10 @@ export default {
 
   methods: {
     async login() {
-      const users = await this.$axios.get('/users/getAll');
+      const response = await this.$axios.post('/users/login', {username: this.username, password: this.password});
 
-      var result = users.data.filter(x => x.username === this.username && x.password === this.password);
-      console.log(result)
-
-      if(Object.keys(result).length == 1) {
+      if(response.data) {
+        this.$store.commit('set', response.data);
         this.$router.push('/mainpage');
       } else {
         this.error = true
