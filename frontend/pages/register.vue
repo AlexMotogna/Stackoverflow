@@ -38,6 +38,7 @@ export default {
   },
 
   methods: {
+
     async register() {
       const response = await this.$axios.post('/users/create', { username: this.username,
                                                email: this.email,
@@ -54,6 +55,7 @@ export default {
       }
     }
   }
+  
 }
 </script>
 

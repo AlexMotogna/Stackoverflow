@@ -4,9 +4,9 @@
     <v-card class="card">
       <v-btn to="/questions">View Questions</v-btn>
       <br>
-      <v-btn to="/createquestion">Ask Question</v-btn>
-      <br>
       <v-btn to="/profile">View Profile</v-btn>
+      <br>
+      <v-btn to="/createquestion">Ask Question</v-btn>
     </v-card>
     <LogoutButton />
   </div>
@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  layout: 'auth',
 
 }
 </script>

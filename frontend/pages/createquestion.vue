@@ -13,7 +13,10 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
+  layout: 'auth',
   data() {
     return {
       title: '',
@@ -22,9 +25,26 @@ export default {
   },
 
   methods: {
-    submit() {
-      console.log({ title: this.title, text: this.text });
+
+    async submit() {
+      console.log({ title: this.title,text: this.text, creationtime: this.formatDate(new Date()), score: 0});
+      const response = await this.$axios.post('/questions/create/?authorid=' + this.$store.state.user.id, { title: this.title,
+                                                                                                            text: this.text,
+                                                                                                            creationtime: this.formatDate(new Date()),
+                                                                                                            score: 0});
+      
+      if(response.data === "Creation success.") {
+        this.$router.push('/questions');
+      } else {
+
+      }
+
+    },
+
+    formatDate(date) {
+      return moment(date).format();
     }
+
   }
 }
 </script>

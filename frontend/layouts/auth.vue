@@ -1,3 +1,18 @@
 <template>
-  <h1>auth-  This will appear on all pages I want to</h1>
+  <div>
+    <Nuxt />
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'auth',
+  
+  mounted() {
+    if(this.$store.state.user == null) {
+      this.$router.push('/login');
+    }
+  }
+
+}
+</script>

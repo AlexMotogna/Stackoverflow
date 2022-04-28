@@ -17,6 +17,7 @@
 import { questionJson } from '../constants'
 
 export default {
+  layout: 'auth',
   data () {
     return {
       question: questionJson

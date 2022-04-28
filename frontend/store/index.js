@@ -9,5 +9,9 @@ export const mutations = {
 
   remove(state) {
     state.user = null;
+  },
+
+  get(state) {
+    return state.user;
   }
 }
