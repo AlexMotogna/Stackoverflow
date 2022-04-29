@@ -45,6 +45,15 @@ public class QuestionService {
         return iQuestionRepository.getAllQuestionsByAuthorId(authorid);
     }
 
+    public User getAuthor(Integer qid) {
+        Question question = this.getQuestionById(qid);
+        if(question != null) {
+            return question.getAuthor();
+        } else {
+            return null;
+        }
+    }
+
     public Question getQuestionById(Integer id) {
         return iQuestionRepository.findById(id).orElse(null);
     }

@@ -60,14 +60,6 @@ export default {
 </script>
 
 <style scoped>
-.error_card {
-  width: 30%;
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
 .error {
   font-size: large;
   color: red;
@@ -80,10 +72,18 @@ export default {
   text-align: center;
   padding-left: 30px;
 }
+.error_card {
+  width: 30%;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .login_card {
   width: 50%;
   position: fixed;
-  top: 30%;
+  top: 40%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -91,7 +91,7 @@ export default {
 .create_account_card {
   width: 50%;
   position: fixed;
-  top: 70%;
+  top: 80%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);

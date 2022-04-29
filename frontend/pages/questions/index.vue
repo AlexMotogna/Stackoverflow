@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1><Logo />Questions</h1>
-    <QuestionItem @click.native="redirectview" v-for="question in questions" :key="question.id" :value="question" />
+    <QuestionItem @click.native="redirectview(question.id)" v-for="question in questions" :key="question.id" :value="question" />
     <v-btn to="/mainpage">Back</v-btn>
     <br>
     <br>
@@ -12,22 +12,34 @@
 <script>
 export default {
   layout: 'auth',
+
   data() {
     return {
       questions: []
     }
   },
+
   async mounted() {
     this.getPosts();
   },
+
   methods : {
-    redirectview() {
-      this.$router.push('/questionview');
+
+    redirectview(questionId) {
+      this.$router.push({
+        name: 'questions-id',
+        params: { id: questionId, fromProfile: false }
+      });
+
+      // this.$router.push('/questions/' + questionId);
     },
+
     async getPosts() {
       const questions = await this.$axios.get('/questions/getAll');
       this.questions = questions.data;
     }
+
   }
+  
 }
 </script>

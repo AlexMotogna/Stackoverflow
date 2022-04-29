@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.AnswerVote;
 import com.example.model.Question;
 import com.example.model.QuestionVote;
+import com.example.model.User;
 import com.example.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,11 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getAuthor")
+    @ResponseBody
+    public User getAuthor(@RequestParam(name = "qid") Integer qid) {
+        return questionService.getAuthor(qid);
+    }
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     @ResponseBody
     public String createQuestion(@RequestParam(name = "authorid") Integer authorid, @RequestBody Question question) {

@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-card class="question_card">
-        <v-card-title class="title">Question</v-card-title>
-        <v-form>
-          <v-text-field class="text-input" v-model="title" placeholder="Enter title" />
-          <v-textarea class="text-area" v-model="text" placeholder="Enter question" />
-          <v-btn @click="submit">Create Question</v-btn>
-          <v-btn to="/mainpage">Back</v-btn>
-        </v-form>
-      </v-card>
+      <v-card-title class="title">Question</v-card-title>
+      <v-form>
+        <v-text-field class="text-input" v-model="title" placeholder="Enter title" />
+        <v-textarea class="text-area" v-model="text" placeholder="Enter question" />
+        <v-btn @click="submit">Create Question</v-btn>
+        <v-btn to="/mainpage">Back</v-btn>
+      </v-form>
+    </v-card>
   </div>
 </template>
 
@@ -17,11 +17,17 @@ import moment from 'moment';
 
 export default {
   layout: 'auth',
+
   data() {
     return {
       title: '',
       text: ''
     }
+  },
+
+  async mounted() {
+    const response = await this.$axios.get('/tags/getAll');
+    this.tags = response.data;
   },
 
   methods: {
@@ -43,7 +49,7 @@ export default {
 
     formatDate(date) {
       return moment(date).format();
-    }
+    },
 
   }
 }
@@ -65,6 +71,17 @@ export default {
   width: 50%;
   position: fixed;
   top: 30%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.tag_display {
+  display: flex;
+}
+.tag_card {
+  width: 50%;
+  position: fixed;
+  top: 60%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
