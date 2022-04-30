@@ -5,7 +5,7 @@
       <v-form>
         <v-text-field class="text-input" v-model="question.title" placeholder="Enter title" />
         <v-textarea class="text-area" v-model="question.text" placeholder="Enter question" />
-        <v-btn @click="submit">Create Question</v-btn>
+        <v-btn @click="submit">Update Question</v-btn>
         <v-btn to="/mainpage">Back</v-btn>
       </v-form>
     </v-card>
@@ -42,28 +42,37 @@ export default {
 
   data() {
     return {
-      question: null,
-      tags: [],
       questionTags: [],
       selected: null
     }
   },
 
+  async asyncData({params, $axios}) {
+    const responseTags = await $axios.get('/tags/getAll');
+    const tags = responseTags.data;
+
+    const responseQuestion = await $axios.get(`/questions/get?id=${params.id}`);
+    const question = responseQuestion.data;
+
+    return { question, tags}
+  },
+
   async mounted() {
-    const response = await this.$axios.get('/tags/getAll');
-    this.tags = response.data;
+    
   },
 
   methods: {
 
     async submit() {
-      console.log({ title: this.title,text: this.text, creationtime: this.formatDate(new Date()), score: 0});
-      // const response = await this.$axios.post('/questions/create/?authorid=' + this.$store.state.user.id, { title: this.title,
-      //                                                                                                       text: this.text,
-      //                                                                                                       creationtime: this.formatDate(new Date()),
-      //                                                                                                       score: 0});
+      console.log(this.question);
+      console.log(this.questionTags);
+      const response = await this.$axios.put('/questions/update', { id: this.question.id,
+                                                                    title: this.question.title,
+                                                                    text: this.question.text,
+                                                                    creationtime: this.question.creationtime,
+                                                                    score: this.question.score });
       
-      if(response.data === "Creation success.") {
+      if(response.data === "Update success.") {
         this.$router.push('/questions');
       } else {
 
@@ -82,7 +91,6 @@ export default {
     addTag() {
       if(this.selected.name && !this.questionTags.some(item => item.id === this.selected.id)) {
         this.questionTags.push({ id: this.selected.id, name: this.selected.name });
-        // const response = await this.$axios.post(`localhost:8081/questions/addTag?qid=${1}&tagid=${tag.id}`)
       } else {
         console.log('error');
       }
@@ -117,7 +125,7 @@ export default {
 .tag_card {
   width: 50%;
   position: fixed;
-  top: 60%;
+  top: 70%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);

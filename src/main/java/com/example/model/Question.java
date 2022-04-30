@@ -29,7 +29,6 @@ public class Question {
     @Column(name = "score")
     private Integer score;
 
-    @JsonBackReference(value = "question-user")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "authorid", referencedColumnName = "id")
     private User author;

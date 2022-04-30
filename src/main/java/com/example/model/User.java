@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class User {
     @Column(name = "banned")
     private Boolean banned;
 
+    @JsonBackReference(value = "question-user")
     @OneToMany(mappedBy = "author")
     private List<Question> questions = new ArrayList<>();
 
+    @JsonBackReference(value = "answer-user")
     @OneToMany(mappedBy = "author")
     private List<Answer> answers = new ArrayList<>();
 

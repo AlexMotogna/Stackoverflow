@@ -7,6 +7,7 @@
       </div>
       <v-card-text>{{value.text}}</v-card-text>
       <v-card-text>
+        <p>Asked by: {{value.author.username}}</p>
         <p>Created at: {{formatDate(value.creationtime)}}</p>
         <p>Score: {{value.score}}</p>
       </v-card-text>
@@ -28,7 +29,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.value);
+    
   },
 
   methods: {

@@ -4,7 +4,7 @@
     <v-card class="card">
       <v-btn to="/questions">View Questions</v-btn>
       <br>
-      <v-btn to="/profile">View Profile</v-btn>
+      <v-btn @click="redirectProfile">View Profile</v-btn>
       <br>
       <v-btn to="/createquestion">Ask Question</v-btn>
     </v-card>
@@ -15,6 +15,17 @@
 <script>
 export default {
   layout: 'auth',
+
+  methods: {
+
+    redirectProfile() {
+      this.$router.push({
+        name: 'profile',
+        params: { id: this.$store.state.user.id }
+      });
+    }
+
+  }
 
 }
 </script>

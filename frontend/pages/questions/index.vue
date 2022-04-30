@@ -31,7 +31,6 @@ export default {
         params: { id: questionId, fromProfile: false }
       });
 
-      // this.$router.push('/questions/' + questionId);
     },
 
     async getPosts() {

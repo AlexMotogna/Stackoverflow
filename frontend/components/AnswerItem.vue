@@ -3,6 +3,8 @@
     <v-card class="answer_card">
       <v-card-text>{{value.text}}</v-card-text>
       <v-card-text>
+        <p>Answered by: {{value.author.username}}</p>
+        <v-btn @click="redirectProfile">View account</v-btn>
         <p>Created at: {{formatDate(value.creationtime)}}</p>
         <p>Score: {{value.score}}</p>
       </v-card-text>
@@ -34,6 +36,12 @@ export default {
     },
     downvote() {
       console.log("Downvote");
+    },
+    redirectProfile() {
+      this.$router.push({
+        name: 'profile',
+        params: { id: this.value.author.id }
+      });
     }
   }
 }
