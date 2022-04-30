@@ -23,14 +23,18 @@ export default {
 
   data() {
     return {
-      question: [],
       text: ''
     }
   },
 
+  async asyncData({params, $axios}) {
+    const response = await $axios.get(`/questions/get?id=${params.id}`);
+    const question = response.data;
+    return { question }
+  },
+
   async mounted() {
-    const response = await this.$axios.get(`/questions/get?id=${this.$route.params.id}`);
-    this.question = response.data;
+
   },
 
   methods: {

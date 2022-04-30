@@ -64,7 +64,6 @@ export default {
   methods: {
 
     async submit() {
-      console.log(this.question);
       console.log(this.questionTags);
       const response = await this.$axios.put('/questions/update', { id: this.question.id,
                                                                     title: this.question.title,
@@ -73,6 +72,11 @@ export default {
                                                                     score: this.question.score });
       
       if(response.data === "Update success.") {
+
+        for (const tag in this.questionTags) {
+          const response = await this.$axios.post(`/questions/addTag?qid=${this.question.id}&tagid=${this.questionTags[tag].id}`)
+        }
+
         this.$router.push('/questions');
       } else {
 

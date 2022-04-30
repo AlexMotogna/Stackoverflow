@@ -52,4 +52,10 @@ public class UserController {
         return userService.updateUser(user);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/ban")
+    @ResponseBody
+    public String updateUser(@RequestParam(name = "id") Integer id) {
+        return userService.banUser(id);
+    }
+
 }

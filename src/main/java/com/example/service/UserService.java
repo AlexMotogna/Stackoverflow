@@ -74,4 +74,11 @@ public class UserService {
         }
     }
 
+    public String banUser(Integer id) {
+        User user = this.getUserById(id);
+        user.setBanned(true);
+        return this.updateUser(user);
+    }
+
+
 }

@@ -5,8 +5,7 @@
     <p>Score: {{this.user.score}}</p>
     <h1>Your Questions:</h1>
     <QuestionItem @click.native="redirectquestionview(question.id)" v-for="question in questions" :key="question.id" :value="question" />
-    <!-- <h1>Your Answers:</h1>
-    <AnswerItem @click.native="redirectanswerview" v-for="answer in answers" :key="answer.id" :value="answer" /> -->
+    <v-btn v-if="this.$store.state.user.admin" @click="ban" class="ban_button">Ban</v-btn>
     <v-btn to="/mainpage">Back</v-btn>
     <br>
     <br>
@@ -41,6 +40,10 @@ export default {
       });
     },
 
+    async ban() {
+      const response = await this.$axios.put(`users/ban?id=${this.$route.params.id}`);
+    },
+
     redirectanswerview() {
       // this.$router.push('/questionview');
     }
@@ -50,5 +53,7 @@ export default {
 </script>
 
 <style scoped>
-
+.ban_button {
+  color: red;
+}
 </style>
