@@ -10,6 +10,8 @@
       </v-card-text>
       <v-btn @click="upvote" class="upvote_button">Upvote</v-btn>
       <v-btn @click="downvote" class="downvote_button">Downvote</v-btn>
+      <br>
+      <v-btn v-if="value.author.id === this.$store.state.user.id || this.$store.state.user.admin" @click="redirectEditAnswer">Edit</v-btn>
     </v-card>
   </div>
 </template>
@@ -28,19 +30,30 @@ export default {
   },
 
   methods: {
+
     formatDate(date) {
       return moment(date).format('DD.MM.YYYY');
     },
+
     upvote() {
       console.log("Upvote");
     },
+
     downvote() {
       console.log("Downvote");
     },
+
     redirectProfile() {
       this.$router.push({
         name: 'profile',
         params: { id: this.value.author.id }
+      });
+    },
+
+    redirectEditAnswer() {
+      this.$router.push({
+        name: 'editanswer',
+        params: { id: this.value.id }
       });
     }
   }

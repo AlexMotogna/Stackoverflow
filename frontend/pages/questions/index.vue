@@ -13,14 +13,14 @@
 export default {
   layout: 'auth',
 
-  data() {
-    return {
-      questions: []
-    }
+  async asyncData({params, $axios}) {
+    const response = await $axios.get('/questions/getAll');
+    const questions = response.data;
+    return { questions }
   },
 
   async mounted() {
-    this.getPosts();
+
   },
 
   methods : {
@@ -31,11 +31,6 @@ export default {
         params: { id: questionId, fromProfile: false }
       });
 
-    },
-
-    async getPosts() {
-      const questions = await this.$axios.get('/questions/getAll');
-      this.questions = questions.data;
     }
 
   }

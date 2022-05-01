@@ -42,10 +42,6 @@ export default {
 
     async ban() {
       const response = await this.$axios.put(`users/ban?id=${this.$route.params.id}`);
-    },
-
-    redirectanswerview() {
-      // this.$router.push('/questionview');
     }
 
   }

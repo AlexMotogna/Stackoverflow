@@ -26,8 +26,7 @@ export default {
   },
 
   async mounted() {
-    const response = await this.$axios.get('/tags/getAll');
-    this.tags = response.data;
+
   },
 
   methods: {
@@ -71,17 +70,6 @@ export default {
   width: 50%;
   position: fixed;
   top: 30%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-.tag_display {
-  display: flex;
-}
-.tag_card {
-  width: 50%;
-  position: fixed;
-  top: 60%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
