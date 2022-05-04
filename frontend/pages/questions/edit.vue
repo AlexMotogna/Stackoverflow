@@ -66,7 +66,6 @@ export default {
     const question = responseQuestion.data;
 
     const questionTags = [];
-
     question.tags.forEach(element => questionTags.push(element));
 
     return { question, tags, questionTags }
@@ -159,7 +158,7 @@ export default {
 .create_tag_card {
   width: 30%;
   position: fixed;
-  top: 65%;
+  top: 75%;
   left: 30%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -167,7 +166,7 @@ export default {
 .tag_card {
   width: 30%;
   position: fixed;
-  top: 65%;
+  top: 75%;
   left: 70%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);

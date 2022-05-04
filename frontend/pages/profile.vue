@@ -3,7 +3,7 @@
     <h1>Profile</h1>
     <p>Username: {{this.user.username}}</p>
     <p>Score: {{this.user.score}}</p>
-    <h1>Your Questions:</h1>
+    <h1>Questions asked:</h1>
     <QuestionItem @click.native="redirectquestionview(question.id)" v-for="question in questions" :key="question.id" :value="question" />
     <v-btn v-if="this.$store.state.user.admin" @click="ban" class="ban_button">Ban</v-btn>
     <v-btn to="/mainpage">Back</v-btn>

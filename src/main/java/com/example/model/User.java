@@ -63,6 +63,10 @@ public class User {
         this.banned = banned;
     }
 
+    public void incrementScore(int value) {
+        this.score += value;
+    }
+
     public Integer getId() {
         return id;
     }

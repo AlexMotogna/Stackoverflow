@@ -34,7 +34,6 @@ public class Answer {
     @JoinColumn(name = "qid", referencedColumnName = "id")
     private Question question;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "answer")
     private List<AnswerVote> votes = new ArrayList<>();
 
@@ -50,6 +49,10 @@ public class Answer {
         this.author = author;
         this.question = question;
         this.votes = votes;
+    }
+
+    public void incrementScore(int value) {
+        this.score += value;
     }
 
     public Integer getId() {

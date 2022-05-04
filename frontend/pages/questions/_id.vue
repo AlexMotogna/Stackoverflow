@@ -3,8 +3,8 @@
     <h1>Question:</h1>
     <QuestionItem key="question.id" :value="question" />
     <br>
-    <v-btn @click="upvote" class="upvote_button">Upvote</v-btn>
-    <v-btn @click="downvote" class="downvote_button">Downvote</v-btn>
+    <v-btn v-show="shouldShowUpvote()" @click="upvote" class="upvote_button">Upvote</v-btn>
+    <v-btn v-show="shouldShowDownvote()" @click="downvote" class="downvote_button">Downvote</v-btn>
     <br>
     <br>
     <v-btn v-if="this.question.author.id === this.$store.state.user.id || this.$store.state.user.admin" @click="redirectEdit" class="edit_button">Edit</v-btn>
@@ -36,12 +36,12 @@ export default {
 
   methods: {
 
-    upvote() {
-      console.log("Upvote");
+    async upvote() {
+      const response = await this.$axios.post(`questions/upvote?qid=${this.question.id}&userid=${this.$store.state.user.id}&upvote=true`);
     },
 
-    downvote() {
-      console.log("Downvote");
+    async downvote() {
+      const response = await this.$axios.post(`questions/upvote?qid=${this.question.id}&userid=${this.$store.state.user.id}&upvote=false`);
     },
 
     redirectCreateAnswer() {
@@ -67,6 +67,24 @@ export default {
 
     canEdit() {
       return this.question.author.id === this.$store.state.user.id || this.$store.state.user.admin;
+    },
+
+    shouldShowUpvote() {
+      var vote = this.question.votes.find(element => element.id.userid === this.$store.state.user.id);
+      if(typeof vote !== 'undefined') {
+        return !vote.upvote;
+      } else {
+        return true;
+      }
+    },
+
+    shouldShowDownvote() {
+      var vote = this.question.votes.find(element => element.id.userid === this.$store.state.user.id);
+      if(typeof vote !== 'undefined') {
+        return vote.upvote;
+      } else {
+        return true;
+      }
     }
 
   }

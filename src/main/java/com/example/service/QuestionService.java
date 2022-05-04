@@ -126,15 +126,49 @@ public class QuestionService {
 
         if (question != null && user != null) {
 
+            List<QuestionVote> questionVotes = (List<QuestionVote>) iQuestionVoteRepository.findAll();
+            QuestionVote vote = questionVotes.stream()
+                    .filter(v -> v.getId().getQid() == qid && v.getId().getUserid() == userid )
+                    .findFirst().orElse(null);
+
+            User questionAuthor = question.getAuthor();
+
+            int authorPoints = 0, questionPoints = 0;
+
+            if(vote != null) {
+                if (vote.getUpvote() == upvote) {
+                    return "Already voted";
+                } else {
+                    if(upvote) {
+                        authorPoints = 10;
+                        questionPoints = 2;
+                    } else {
+                        authorPoints = -10;
+                        questionPoints = -2;
+                    }
+                }
+            } else {
+                if(upvote) {
+                    authorPoints = 5;
+                    questionPoints = 1;
+                } else {
+                    authorPoints = -2;
+                    questionPoints = -1;
+                }
+            }
+
+            questionAuthor.incrementScore(authorPoints);
+            question.incrementScore(questionPoints);
+
+            iUserRepository.save(questionAuthor);
+            iQuestionRepository.save(question);
+
             QuestionVote newVote = new QuestionVote(
                     new QuestionVoteId(qid, userid),
                     question,
                     user,
                     upvote
             );
-
-            //TODO: point reward
-
             iQuestionVoteRepository.save(newVote);
 
             return "Success.";

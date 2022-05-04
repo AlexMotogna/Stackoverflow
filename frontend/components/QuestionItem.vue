@@ -7,7 +7,7 @@
       </div>
       <v-card-text>{{value.text}}</v-card-text>
       <v-card-text>
-        <p>Asked by: {{value.author.username}}</p>
+        <p>Asked by: {{value.author.username}} ({{value.author.score}})</p>
         <p>Created at: {{formatDate(value.creationtime)}}</p>
         <p>Score: {{value.score}}</p>
       </v-card-text>

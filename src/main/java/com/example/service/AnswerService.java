@@ -92,15 +92,54 @@ public class AnswerService {
 
         if (answer != null && user != null) {
 
+            List<AnswerVote> answerVotes = (List<AnswerVote>) iAnswerVoteRepository.findAll();
+            AnswerVote vote = answerVotes.stream()
+                    .filter(v -> v.getId().getAid() == aid && v.getId().getUserid() == userid )
+                    .findFirst().orElse(null);
+
+            User answerAuthor = answer.getAuthor();
+
+            int userPoints = 0, answerPoints = 0, authorPoints = 0;
+
+            if (vote != null) {
+                if (vote.getUpvote() == upvote) {
+                    return "Already voted";
+                } else {
+                    if(upvote) {
+                        authorPoints = 12;
+                        answerPoints = 2;
+                        userPoints = 1;
+                    } else {
+                        authorPoints = -12;
+                        answerPoints = -2;
+                        userPoints = -1;
+                    }
+                }
+            } else {
+                if(upvote) {
+                    authorPoints = 10;
+                    answerPoints = 1;
+                } else {
+                    authorPoints = -2;
+                    answerPoints = -1;
+                    userPoints = -1;
+                }
+            }
+
+            answerAuthor.incrementScore(authorPoints);
+            answer.incrementScore(answerPoints);
+            user.incrementScore(userPoints);
+
+            iUserRepository.save(user);
+            iUserRepository.save(answerAuthor);
+            iAnswerRepository.save(answer);
+
             AnswerVote newVote = new AnswerVote(
                     new AnswerVoteId(aid, userid),
                     answer,
                     user,
                     upvote
             );
-
-            //TODO: point reward
-
             iAnswerVoteRepository.save(newVote);
 
             return "Success.";

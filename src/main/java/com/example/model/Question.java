@@ -44,7 +44,6 @@ public class Question {
     )
     private List<Tag> tags = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "question")
     private List<QuestionVote> votes = new ArrayList<>();
 
@@ -62,6 +61,10 @@ public class Question {
         this.answers = answers;
         this.tags = tags;
         this.votes = votes;
+    }
+
+    public void incrementScore(int value) {
+        this.score += value;
     }
 
     public Integer getId() {
