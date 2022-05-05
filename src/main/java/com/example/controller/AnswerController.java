@@ -36,6 +36,12 @@ public class AnswerController {
         return answerService.getAllAnswersByQuestionId(qid);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getQuestion")
+    @ResponseBody
+    public Question getQuestion(@RequestParam(name = "id") Integer qid) {
+        return answerService.getQuestionByAnswer(qid);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     @ResponseBody
     public String createAnswer(@RequestParam(name = "authorid") Integer authorid, @RequestParam(name = "qid") Integer qid, @RequestBody Answer answer) {

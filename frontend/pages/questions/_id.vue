@@ -38,10 +38,14 @@ export default {
 
     async upvote() {
       const response = await this.$axios.post(`questions/upvote?qid=${this.question.id}&userid=${this.$store.state.user.id}&upvote=true`);
+      const responseQuestion = await this.$axios.get(`/questions/get?id=${this.question.id}`);
+      this.question = responseQuestion.data;
     },
 
     async downvote() {
       const response = await this.$axios.post(`questions/upvote?qid=${this.question.id}&userid=${this.$store.state.user.id}&upvote=false`);
+      const responseQuestion = await this.$axios.get(`/questions/get?id=${this.question.id}`);
+      this.question = responseQuestion.data;
     },
 
     redirectCreateAnswer() {

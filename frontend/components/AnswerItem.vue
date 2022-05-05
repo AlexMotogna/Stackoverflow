@@ -36,11 +36,21 @@ export default {
     },
 
     async upvote() {
-      const response = await this.$axios.post(`answers/upvote?aid=${this.value.id}&userid=${this.$store.state.user.id}&upvote=true`);
+      const responseVote = await this.$axios.post(`answers/upvote?aid=${this.value.id}&userid=${this.$store.state.user.id}&upvote=true`);
+      const response = await this.$axios.get(`answers/getQuestion?id=${this.value.id}`)
+      this.$router.push({
+        name: 'questions-id',
+        params: { id: response.data.id }
+      });
     },
 
     async downvote() {
-      const response = await this.$axios.post(`answers/upvote?aid=${this.value.id}&userid=${this.$store.state.user.id}&upvote=false`);
+      const responseVote = await this.$axios.post(`answers/upvote?aid=${this.value.id}&userid=${this.$store.state.user.id}&upvote=false`);
+      const response = await this.$axios.get(`answers/getQuestion?id=${this.value.id}`)
+      this.$router.push({
+        name: 'questions-id',
+        params: { id: response.data.id }
+      });
     },
 
     redirectProfile() {

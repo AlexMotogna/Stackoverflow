@@ -39,6 +39,16 @@ public class AnswerService {
         return iAnswerRepository.getAllAnswersByQuestionId(qid);
     }
 
+    public Question getQuestionByAnswer(Integer id) {
+        Answer answer = getAnswerById(id);
+        if(answer != null) {
+            return answer.getQuestion();
+        } else {
+            return null;
+        }
+    }
+
+
     public String createAnswer(Integer authorid, Integer qid, Answer answer) {
         try {
             User user = iUserRepository.findById(authorid).orElse(null);

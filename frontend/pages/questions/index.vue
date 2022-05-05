@@ -28,7 +28,7 @@ export default {
     redirectview(questionId) {
       this.$router.push({
         name: 'questions-id',
-        params: { id: questionId, fromProfile: false }
+        params: { id: questionId }
       });
 
     }
