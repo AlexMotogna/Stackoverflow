@@ -6,7 +6,8 @@
         <v-text-field class="text-input" v-model="question.title" placeholder="Enter title" />
         <v-textarea class="text-area" v-model="question.text" placeholder="Enter question" />
         <v-btn @click="submit">Update Question</v-btn>
-        <v-btn to="/mainpage">Back</v-btn>
+        <v-btn to="/questions">Back</v-btn>
+        <v-btn @click="deleteQuestion" class="delete_button">Delete</v-btn>
       </v-form>
     </v-card>
 
@@ -127,6 +128,11 @@ export default {
         const responseTags = await this.$axios.get('/tags/getAll');
         this.tags = responseTags.data;
       }
+    },
+
+    async deleteQuestion() {
+      const response = await this.$axios.delete(`/questions/delete?id=${this.question.id}`);
+      this.$router.push('/questions');
     }
 
   }
@@ -138,6 +144,9 @@ export default {
   width: 75%;
   text-align: center;
   padding-left: 30px;
+}
+.delete_button {
+  color: red;
 }
 .text-area {
   width: 75%;
@@ -158,7 +167,7 @@ export default {
 .create_tag_card {
   width: 30%;
   position: fixed;
-  top: 75%;
+  top: 65%;
   left: 30%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -166,7 +175,7 @@ export default {
 .tag_card {
   width: 30%;
   position: fixed;
-  top: 75%;
+  top: 65%;
   left: 70%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);

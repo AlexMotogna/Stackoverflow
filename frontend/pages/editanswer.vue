@@ -10,6 +10,7 @@
           <v-textarea class="text-area" v-model="answer.text" placeholder="Enter question" />
           <v-btn @click="submit">Update Answer</v-btn>
           <v-btn to="/questions">Back</v-btn>
+          <v-btn @click="deleteAnswer" class="delete_button">Delete</v-btn>
         </v-form>
       </v-card>
   </div>
@@ -45,6 +46,11 @@ export default {
 
       }
 
+    },
+
+    async deleteAnswer() {
+      const response = await this.$axios.delete(`/answers/delete?id=${this.answer.id}`);
+      this.$router.push('/questions');
     }
 
   }
@@ -56,6 +62,9 @@ export default {
   width: 50%;
   text-align: center;
   padding-left: 30px;
+}
+.delete_button {
+  color: red;
 }
 .text-area {
   width: 50%;
