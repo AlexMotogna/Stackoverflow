@@ -42,7 +42,7 @@ export default {
   },
 
   async mounted() {
-
+    this.questions.sort((a, b) => (a.creationtime > b.creationtime) ? 1 : -1);
   },
 
   methods : {

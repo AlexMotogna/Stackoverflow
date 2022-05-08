@@ -1,19 +1,22 @@
 package com.example.service;
 
+import com.example.EmailSender;
 import com.example.dto.AuthDTO;
 import com.example.model.User;
 import com.example.repository.IUserRepository;
+import com.mysql.cj.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Properties;
 
 @Service
 public class UserService {
 
     @Autowired
     IUserRepository iUserRepository;
+    private Object Message;
 
     public User createUser(User user) {
         try {
@@ -77,6 +80,7 @@ public class UserService {
     public String banUser(Integer id) {
         User user = this.getUserById(id);
         user.setBanned(true);
+//        EmailSender.sendEmail(user.getEmail());
         return this.updateUser(user);
     }
 

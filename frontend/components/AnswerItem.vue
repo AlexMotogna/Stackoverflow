@@ -69,6 +69,11 @@ export default {
 
     shouldShowUpvote() {
       var vote = this.value.votes.find(element => element.id.userid === this.$store.state.user.id);
+
+      if(this.value.author.id == this.$store.state.user.id) {
+        return false;
+      }
+
       if(typeof vote !== 'undefined') {
         return !vote.upvote;
       } else {
@@ -78,6 +83,11 @@ export default {
 
     shouldShowDownvote() {
       var vote = this.value.votes.find(element => element.id.userid === this.$store.state.user.id);
+
+      if(this.value.author.id == this.$store.state.user.id) {
+        return false;
+      }
+
       if(typeof vote !== 'undefined') {
         return vote.upvote;
       } else {

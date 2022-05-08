@@ -31,7 +31,7 @@ export default {
   },
 
   async mounted() {
-
+    this.question.answers.sort((a, b) => (a.score < b.score) ? 1 : -1);
   },
 
   methods: {
@@ -75,6 +75,11 @@ export default {
 
     shouldShowUpvote() {
       var vote = this.question.votes.find(element => element.id.userid === this.$store.state.user.id);
+
+      if(this.question.author.id == this.$store.state.user.id) {
+        return false;
+      }
+
       if(typeof vote !== 'undefined') {
         return !vote.upvote;
       } else {
@@ -84,6 +89,11 @@ export default {
 
     shouldShowDownvote() {
       var vote = this.question.votes.find(element => element.id.userid === this.$store.state.user.id);
+
+      if(this.question.author.id == this.$store.state.user.id) {
+        return false;
+      }
+
       if(typeof vote !== 'undefined') {
         return vote.upvote;
       } else {
